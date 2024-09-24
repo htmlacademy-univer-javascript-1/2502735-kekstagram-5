@@ -2,6 +2,7 @@
 function checkStringLenght(str, maxLength) {
   return str.length <= maxLength;
 }
+checkStringLenght();
 
 // Функция для проверки, является ли строка палиндромом
 function checkPalindrome(str) {
@@ -11,3 +12,4 @@ function checkPalindrome(str) {
 
   return processedStr === reversedStr;
 }
+checkPalindrome();
