@@ -64,5 +64,4 @@ function generateObjects() {
   return photos;
 }
 
-const objects = generateObjects();
-console.log(objects);
+generateObjects();
