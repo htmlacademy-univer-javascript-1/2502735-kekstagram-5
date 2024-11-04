@@ -1,4 +1,4 @@
-import { generateObjects } from "./util.js";
+import { generateObjects } from './util.js';
 
 export function renderMin() {
   const photos = generateObjects();

@@ -1,3 +1,3 @@
-import { renderMin } from "./render-min.js";
+import { renderMin } from './render-min.js';
 
 renderMin();
