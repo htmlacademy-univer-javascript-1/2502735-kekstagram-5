@@ -1,3 +1,3 @@
-import { generateObjects } from './util.js';
+import { renderMin } from './render-min.js';
 
-generateObjects();
+renderMin();
