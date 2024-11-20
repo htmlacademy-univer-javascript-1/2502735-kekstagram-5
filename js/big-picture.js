@@ -10,17 +10,17 @@ export function showBigPicture(photo) {
   const body = document.body;
   const closeButton = bigPicture.querySelector('#picture-cancel');
 
-  const onEscPress = (evt) => {
+  function onEscPress(evt) {
     if (evt.key === 'Escape') {
       closeBigPicture();
     }
-  };
+  }
 
-  const closeBigPicture = () => {
+  function closeBigPicture() {
     bigPicture.classList.add('hidden');
     body.classList.remove('modal-open');
     document.removeEventListener('keydown', onEscPress);
-  };
+  }
 
   bigPictureImg.src = photo.url;
   bigPictureImg.alt = photo.description;
