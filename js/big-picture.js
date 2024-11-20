@@ -5,10 +5,8 @@ export function showBigPicture(photo) {
   const commentsCount = bigPicture.querySelector('.comments-count');
   const socialComments = bigPicture.querySelector('.social__comments');
   const socialCaption = bigPicture.querySelector('.social__caption');
-  const commentCountBlock = bigPicture.querySelector('.social__comment-count');
-  const commentsLoader = bigPicture.querySelector('.comments-loader');
-  const body = document.body;
   const closeButton = bigPicture.querySelector('#picture-cancel');
+  const body = document.body;
 
   bigPictureImg.src = photo.url;
   bigPictureImg.alt = photo.description;
@@ -18,26 +16,24 @@ export function showBigPicture(photo) {
 
   socialComments.innerHTML = '';
 
-  const commentsFragment = document.createDocumentFragment();
   photo.comments.forEach((comment) => {
     const commentElement = document.createElement('li');
     commentElement.classList.add('social__comment');
 
-    commentElement.innerHTML = `
-      <img
-        class="social__picture"
-        src="${comment.avatar}"
-        alt="${comment.name}"
-        width="35" height="35">
-      <p class="social__text">${comment.message}</p>
-    `;
+    const commentImg = document.createElement('img');
+    commentImg.classList.add('social__picture');
+    commentImg.src = comment.avatar;
+    commentImg.alt = comment.name;
 
-    commentsFragment.appendChild(commentElement);
+    const commentText = document.createElement('p');
+    commentText.classList.add('social__text');
+    commentText.textContent = comment.message;
+
+    commentElement.appendChild(commentImg);
+    commentElement.appendChild(commentText);
+
+    socialComments.appendChild(commentElement);
   });
-  socialComments.appendChild(commentsFragment);
-
-  commentCountBlock.classList.add('hidden');
-  commentsLoader.classList.add('hidden');
 
   bigPicture.classList.remove('hidden');
   body.classList.add('modal-open');

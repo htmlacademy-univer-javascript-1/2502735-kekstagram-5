@@ -19,7 +19,7 @@ export function renderMin() {
     photoElement.querySelector('.picture__comments').textContent =
       photo.comments.length;
 
-    photoElement.addEventListener('click', () => {
+    photoElement.querySelector('.picture__img').addEventListener('click', () => {
       showBigPicture(photo);
     });
 
@@ -28,4 +28,3 @@ export function renderMin() {
 
   picturesContainer.appendChild(fragment);
 }
-
