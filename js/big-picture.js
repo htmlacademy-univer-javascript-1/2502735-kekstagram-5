@@ -16,6 +16,12 @@ export function showBigPicture(photo) {
     }
   };
 
+  const closeBigPicture = () => {
+    bigPicture.classList.add('hidden');
+    body.classList.remove('modal-open');
+    document.removeEventListener('keydown', onEscPress);
+  };
+
   bigPictureImg.src = photo.url;
   bigPictureImg.alt = photo.description;
   likesCount.textContent = photo.likes;
@@ -48,12 +54,6 @@ export function showBigPicture(photo) {
 
   bigPicture.classList.remove('hidden');
   body.classList.add('modal-open');
-
-  const closeBigPicture = () => {
-    bigPicture.classList.add('hidden');
-    body.classList.remove('modal-open');
-    document.removeEventListener('keydown', onEscPress);
-  };
 
   closeButton.addEventListener('click', closeBigPicture);
   document.addEventListener('keydown', onEscPress);
