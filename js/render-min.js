@@ -1,4 +1,5 @@
 import { generateObjects } from './util.js';
+import { showBigPicture } from './big-picture.js';
 
 export function renderMin() {
   const photos = generateObjects();
@@ -17,6 +18,10 @@ export function renderMin() {
     photoElement.querySelector('.picture__likes').textContent = photo.likes;
     photoElement.querySelector('.picture__comments').textContent =
       photo.comments.length;
+
+    photoElement.querySelector('.picture__img').addEventListener('click', () => {
+      showBigPicture(photo);
+    });
 
     fragment.appendChild(photoElement);
   });
