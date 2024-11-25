@@ -10,6 +10,50 @@ export function showBigPicture(photo) {
   const body = document.body;
   const closeButton = bigPicture.querySelector('#picture-cancel');
 
+  let currentIndex = 0;
+  const commentsUploadedCount = 5;
+
+  commentCountBlock.classList.remove('hidden');
+  commentsLoader.classList.remove('hidden');
+
+  function updateComments() {
+    const commentsFragment = document.createDocumentFragment();
+    const commentsToShow = photo.comments.slice(currentIndex, currentIndex + commentsUploadedCount);
+
+    commentsToShow.forEach((comment) => {
+      const commentElement = document.createElement('li');
+      commentElement.classList.add('social__comment');
+
+      const commentImg = document.createElement('img');
+      commentImg.classList.add('social__picture');
+      commentImg.src = comment.avatar;
+      commentImg.alt = comment.name;
+
+      const commentText = document.createElement('p');
+      commentText.classList.add('social__text');
+      commentText.textContent = comment.message;
+
+      commentElement.appendChild(commentImg);
+      commentElement.appendChild(commentText);
+      commentsFragment.appendChild(commentElement);
+    });
+
+    socialComments.appendChild(commentsFragment);
+
+    currentIndex += commentsUploadedCount;
+
+    const displayedComments = Math.min(currentIndex, photo.comments.length);
+    commentCountBlock.innerHTML = `${displayedComments} из <span class="comments-count">${photo.comments.length}</span> комментариев`;
+
+    if (currentIndex >= photo.comments.length) {
+      commentsLoader.classList.add('hidden');
+    }
+  }
+
+  function onCommentsLoaderClick() {
+    updateComments();
+  }
+
   function onEscPress(evt) {
     if (evt.key === 'Escape') {
       closeBigPicture();
@@ -20,6 +64,7 @@ export function showBigPicture(photo) {
     bigPicture.classList.add('hidden');
     body.classList.remove('modal-open');
     document.removeEventListener('keydown', onEscPress);
+    commentsLoader.removeEventListener('click', onCommentsLoaderClick);
   }
 
   bigPictureImg.src = photo.url;
@@ -29,6 +74,8 @@ export function showBigPicture(photo) {
   socialCaption.textContent = photo.description;
 
   socialComments.innerHTML = '';
+  currentIndex = 0;
+  updateComments();
 
   photo.comments.forEach((comment) => {
     const commentElement = document.createElement('li');
@@ -49,8 +96,7 @@ export function showBigPicture(photo) {
     socialComments.appendChild(commentElement);
   });
 
-  commentCountBlock.classList.add('hidden');
-  commentsLoader.classList.add('hidden');
+  commentsLoader.addEventListener('click', onCommentsLoaderClick);
 
   bigPicture.classList.remove('hidden');
   body.classList.add('modal-open');
