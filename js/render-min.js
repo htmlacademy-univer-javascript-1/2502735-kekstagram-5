@@ -1,26 +1,28 @@
-import { generateObjects } from './util.js';
-import { showBigPicture } from './big-picture.js';
+import { generateObjects } from "./util.js";
+import { showBigPicture } from "./big-picture.js";
 
 export function renderMin() {
   const photos = generateObjects();
-  const picturesContainer = document.querySelector('.pictures');
+  const picturesContainer = document.querySelector(".pictures");
   const template = document
-    .querySelector('#picture')
-    .content.querySelector('.picture');
+    .querySelector("#picture")
+    .content.querySelector(".picture");
 
   const fragment = document.createDocumentFragment();
 
-  photos.forEach((photo) => {
+  photos.forEach(({ url, description, likes, comments }) => {
     const photoElement = template.cloneNode(true);
 
-    photoElement.querySelector('.picture__img').src = photo.url;
-    photoElement.querySelector('.picture__img').alt = photo.description;
-    photoElement.querySelector('.picture__likes').textContent = photo.likes;
-    photoElement.querySelector('.picture__comments').textContent =
-      photo.comments.length;
+    const imgElement = photoElement.querySelector(".picture__img");
+    imgElement.src = url;
+    imgElement.alt = description;
 
-    photoElement.querySelector('.picture__img').addEventListener('click', () => {
-      showBigPicture(photo);
+    photoElement.querySelector(".picture__likes").textContent = likes;
+    photoElement.querySelector(".picture__comments").textContent =
+      comments.length;
+
+    imgElement.addEventListener("click", () => {
+      showBigPicture({ url, description, likes, comments });
     });
 
     fragment.appendChild(photoElement);
