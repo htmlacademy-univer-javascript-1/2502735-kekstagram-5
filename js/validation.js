@@ -34,7 +34,9 @@ document.addEventListener('keydown', ({ key, target }) => {
 fileInput.addEventListener('change', openForm);
 
 const validateHashtags = (value) => {
-  if (!value) return true;
+  if (!value) {
+    return true;
+  }
 
   const hashtags = value.trim().toLowerCase().split(/\s+/);
   const isValid = hashtags.every((tag) => /^#[a-zа-яё0-9]{1,19}$/.test(tag));
@@ -43,13 +45,19 @@ const validateHashtags = (value) => {
 };
 
 const getHashtagErrorMessage = (value) => {
-  if (!value) return '';
+  if (!value) {
+    return '';
+  }
   const hashtags = value.trim().split(/\s+/);
-  if (hashtags.length > 5) return 'Не более 5 хэш-тегов';
+  if (hashtags.length > 5) {
+    return 'Не более 5 хэш-тегов';
+  }
   if (!hashtags.every((tag) => /^#[a-zа-яё0-9]{1,19}$/.test(tag))) {
     return 'Хэш-тег начинается с символа # (решётка), после которой содержать только буквы и цифры длиной до 20 символов';
   }
-  if (new Set(hashtags).size !== hashtags.length) return 'Хэш-тег не может быть использован дважды';
+  if (new Set(hashtags).size !== hashtags.length) {
+    return 'Хэш-тег не может быть использован дважды';
+  }
   return '';
 };
 
