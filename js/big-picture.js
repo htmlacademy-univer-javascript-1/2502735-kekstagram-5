@@ -1,4 +1,4 @@
-export function showBigPicture(photo) {
+export function showBigPicture({ url, description, likes, comments }) {
   const bigPicture = document.querySelector('.big-picture');
   const bigPictureImg = bigPicture.querySelector('.big-picture__img img');
   const likesCount = bigPicture.querySelector('.likes-count');
@@ -18,20 +18,23 @@ export function showBigPicture(photo) {
 
   function updateComments() {
     const commentsFragment = document.createDocumentFragment();
-    const commentsToShow = photo.comments.slice(currentIndex, currentIndex + commentsUploadedCount);
+    const commentsToShow = comments.slice(
+      currentIndex,
+      currentIndex + commentsUploadedCount
+    );
 
-    commentsToShow.forEach((comment) => {
+    commentsToShow.forEach(({ avatar, name, message }) => {
       const commentElement = document.createElement('li');
       commentElement.classList.add('social__comment');
 
       const commentImg = document.createElement('img');
       commentImg.classList.add('social__picture');
-      commentImg.src = comment.avatar;
-      commentImg.alt = comment.name;
+      commentImg.src = avatar;
+      commentImg.alt = name;
 
       const commentText = document.createElement('p');
       commentText.classList.add('social__text');
-      commentText.textContent = comment.message;
+      commentText.textContent = message;
 
       commentElement.appendChild(commentImg);
       commentElement.appendChild(commentText);
@@ -42,10 +45,10 @@ export function showBigPicture(photo) {
 
     currentIndex += commentsUploadedCount;
 
-    const displayedComments = Math.min(currentIndex, photo.comments.length);
-    commentCountBlock.innerHTML = `${displayedComments} из <span class="comments-count">${photo.comments.length}</span> комментариев`;
+    const displayedComments = Math.min(currentIndex, comments.length);
+    commentCountBlock.innerHTML = `${displayedComments} из <span class='comments-count'>${comments.length}</span> комментариев`;
 
-    if (currentIndex >= photo.comments.length) {
+    if (currentIndex >= comments.length) {
       commentsLoader.classList.add('hidden');
     }
   }
@@ -54,8 +57,8 @@ export function showBigPicture(photo) {
     updateComments();
   }
 
-  function onEscPress(evt) {
-    if (evt.key === 'Escape') {
+  function onEscPress({ key }) {
+    if (key === 'Escape') {
       closeBigPicture();
     }
   }
@@ -67,34 +70,15 @@ export function showBigPicture(photo) {
     commentsLoader.removeEventListener('click', onCommentsLoaderClick);
   }
 
-  bigPictureImg.src = photo.url;
-  bigPictureImg.alt = photo.description;
-  likesCount.textContent = photo.likes;
-  commentsCount.textContent = photo.comments.length;
-  socialCaption.textContent = photo.description;
+  bigPictureImg.src = url;
+  bigPictureImg.alt = description;
+  likesCount.textContent = likes;
+  commentsCount.textContent = comments.length;
+  socialCaption.textContent = description;
 
   socialComments.innerHTML = '';
   currentIndex = 0;
   updateComments();
-
-  photo.comments.forEach((comment) => {
-    const commentElement = document.createElement('li');
-    commentElement.classList.add('social__comment');
-
-    const commentImg = document.createElement('img');
-    commentImg.classList.add('social__picture');
-    commentImg.src = comment.avatar;
-    commentImg.alt = comment.name;
-
-    const commentText = document.createElement('p');
-    commentText.classList.add('social__text');
-    commentText.textContent = comment.message;
-
-    commentElement.appendChild(commentImg);
-    commentElement.appendChild(commentText);
-
-    socialComments.appendChild(commentElement);
-  });
 
   commentsLoader.addEventListener('click', onCommentsLoaderClick);
 
