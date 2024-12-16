@@ -9,8 +9,7 @@ export const fetchPhotos = () => {
       return response.json();
     })
     .catch((error) => {
-      console.error('Не удалось загрузить данные:', error);
-      throw error;
+      throw new Error(`Не удалось загрузить данные: ${error.message}`);
     });
 };
 
@@ -26,7 +25,6 @@ export const sendPhotoData = (formData) => {
       return response.json();
     })
     .catch((error) => {
-      console.error('Не удалось отправить данные:', error);
-      throw error;
+      throw new Error(`Не удалось отправить данные: ${error.message}`);
     });
 };
