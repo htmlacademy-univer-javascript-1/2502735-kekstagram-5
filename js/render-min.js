@@ -1,8 +1,8 @@
-import { generateObjects } from './util.js';
+//import { generateObjects } from './util.js';
 import { showBigPicture } from './big-picture.js';
 
-export function renderMin() {
-  const photos = generateObjects();
+export function renderMin(photos) {
+  //const photos = generateObjects();
   const picturesContainer = document.querySelector('.pictures');
   const template = document
     .querySelector('#picture')
