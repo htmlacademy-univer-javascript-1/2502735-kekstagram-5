@@ -14,7 +14,7 @@ export const fetchPhotos = () => {
       throw new Error(`Не удалось загрузить данные: ${error.message}`);
     });
 
-    return promis;
+  return promis;
 };
 
 export const sendPhotoData = (formData) => {
