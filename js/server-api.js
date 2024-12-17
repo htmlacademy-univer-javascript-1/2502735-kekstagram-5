@@ -1,7 +1,9 @@
 const BASE_URL = 'https://29.javascript.htmlacademy.pro/kekstagram';
 
 export const fetchPhotos = () => {
-  fetch(`${BASE_URL}/data`)
+  const promis = fetch(`${BASE_URL}/data`, {
+    method: 'GET'
+  })
     .then((response) => {
       if (!response.ok) {
         throw new Error(`Ошибка: ${response.status}`);
@@ -11,10 +13,12 @@ export const fetchPhotos = () => {
     .catch((error) => {
       throw new Error(`Не удалось загрузить данные: ${error.message}`);
     });
+
+    return promis;
 };
 
 export const sendPhotoData = (formData) => {
-  fetch(BASE_URL, {
+  const promis = fetch(BASE_URL, {
     method: 'POST',
     body: formData,
   })
@@ -27,4 +31,6 @@ export const sendPhotoData = (formData) => {
     .catch((error) => {
       throw new Error(`Не удалось отправить данные: ${error.message}`);
     });
+
+  return promis;
 };

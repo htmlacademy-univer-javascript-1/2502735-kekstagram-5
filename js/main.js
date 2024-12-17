@@ -9,8 +9,8 @@ import './img-edit.js';
     renderMin(photos);
   } catch {
     const errorContainer = document.createElement('div');
-    errorContainer.textContent = 'Ошибка загрузки данных.';
-    errorContainer.style.cssText = 'color: red; text-align: center; margin: 20px;';
+    errorContainer.textContent = 'Ошибка загрузки данных';
+    errorContainer.style.cssText = 'color: red; text-align: center;margin-top:10px;';
     document.body.prepend(errorContainer);
   }
 })();
