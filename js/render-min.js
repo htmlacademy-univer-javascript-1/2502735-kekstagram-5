@@ -2,13 +2,14 @@
 import { showBigPicture } from './big-picture.js';
 
 export function renderMin(photos) {
-  //const photos = generateObjects();
   const picturesContainer = document.querySelector('.pictures');
   const template = document
     .querySelector('#picture')
     .content.querySelector('.picture');
 
-  const fragment = document.createDocumentFragment();
+    const fragment = document.createDocumentFragment();
+
+    picturesContainer.querySelectorAll('.picture').forEach((element) => element.remove());
 
   photos.forEach(({ url, description, likes, comments }) => {
     const photoElement = template.cloneNode(true);
