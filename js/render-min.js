@@ -7,9 +7,9 @@ export function renderMin(photos) {
     .querySelector('#picture')
     .content.querySelector('.picture');
 
-    const fragment = document.createDocumentFragment();
+  const fragment = document.createDocumentFragment();
 
-    picturesContainer.querySelectorAll('.picture').forEach((element) => element.remove());
+  picturesContainer.querySelectorAll('.picture').forEach((element) => element.remove());
 
   photos.forEach(({ url, description, likes, comments }) => {
     const photoElement = template.cloneNode(true);
