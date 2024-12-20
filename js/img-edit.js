@@ -80,3 +80,14 @@ noUiSlider.create(effectLevelSlider, {
   connect: 'lower',
 });
 effectLevelContainer.classList.add('hidden');
+
+export const resetEffects = () => {
+  currentScale = 100;
+  currentEffect = 'none';
+  updateScale();
+  applyEffect(currentEffect);
+};
+
+export const applyPreviewImage = (src) => {
+  imagePreview.src = src;
+};
