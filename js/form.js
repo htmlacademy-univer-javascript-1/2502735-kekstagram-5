@@ -1,4 +1,5 @@
 import { sendPhotoData } from './server-api.js';
+import { resetEffects, applyPreviewImage } from './img-edit.js';
 
 const form = document.querySelector('.img-upload__form');
 const fileInput = form.querySelector('#upload-file');
@@ -29,6 +30,7 @@ const closeForm = () => {
   document.body.classList.remove('modal-open');
   form.reset();
   pristine.reset();
+  resetEffects();
 };
 
 cancelButton.addEventListener('click', closeForm);
@@ -38,7 +40,17 @@ document.addEventListener('keydown', ({ key, target }) => {
   }
 });
 
-fileInput.addEventListener('change', openForm);
+fileInput.addEventListener('change', () => {
+  const file = fileInput.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = () => {
+      applyPreviewImage(reader.result);
+      openForm();
+    };
+    reader.readAsDataURL(file);
+  }
+});
 
 const validateHashtags = (value) => {
   if (!value) {
